@@ -1,3 +1,17 @@
+<!-- 
+ Joshua, Edison, Justin
+ Date: May 30, 2026
+ Assignment: Advanced JavaScript and Tailwind CSS - Unit Converter
+ 
+ Program Description:
+ This web application provides an interactive interface for converting values between metric and imperial systems. 
+ The program accepts inputs from the user consisting of either a single numeric value or a comma-separated list of values via web forms. 
+ Processing is handled by a higher-order factory function that returns specialized arrow-notation functions to dynamically evaluate single data values or mapped array datasets. 
+ The final calculated results are rounded to four decimal places and rendered directly back to the responsive User Interface.
+ Users can seamlessly switch between specialized forms using navigation tabs dedicated to Weight, Distance, and Temperature conversions.
+ 
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,30 +19,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Advanced Javascript and Tailwind CSS</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    
 </head>
-<body>
+<body class="bg-gray-50 min-h-screen relative pb-24">
     <div class="border border-2 border-gray-200 bg-gray-200 p-20 flex justify-center items-center 
         sm:bg-gray-300 md:bg-gray-400 lg:bg-gray-500 xl:bg-gray-600" >
         <h1 class="text-center font-mono font-extrabold text-2xl text-gray-500
             sm:text-gray-400 md:text-gray-300 lg:text-gray-200 xl:text-gray-100
             text-2xl md:text-3xl lg:text-4xl xl:text-5xl">
-            Advanced Javascript and Tailwind CSS
+            Advanced JavaScript and Tailwind CSS
         </h1>
     </div>
 
-    <section>
-        <nav class="flex items-center justify-between px-6 py-4 border-b border-gray-100">
-            <span class="text-lg font-bold text-gray-900">
+    <section class="m-10">
+        <nav class="flex items-center justify-between px-6 py-4 border-2 border-gray-200 rounded-xl bg-blue-50 p-6 shadow-sm mx-10">
+            <span class="text-2xl font-bold text-gray-900">
                 Conversion: 
             </span>
-            <div class="hidden lg:flex items-center gap-6">
-                <a href="#" id="btn-weight" class="text-sm text-gray-600 hover:text-blue-600 button-tag">Weight</a>
-                <a href="#" id="btn-distance" class="text-sm text-gray-600 hover:text-blue-600 button-tag">Distance</a>
-                <a href="#" id="btn-temperature" class="text-sm text-gray-600 hover:text-blue-600 button-tag">Temperature</a>
+            <div id="Tabs" class="hidden lg:flex items-center gap-6 font-bold">
+                <a href="#" id="btn-weight" class="tab-link text-lg text-blue-600 border-b-2 border-blue-600 pb-1 transition-all">Weight</a>
+                <a href="#" id="btn-distance" class="tab-link text-lg text-gray-500 hover:text-blue-600 transition-all">Distance</a>
+                <a href="#" id="btn-temperature" class="tab-link text-lg text-gray-500 hover:text-blue-600 transition-all">Temperature</a>
             </div>
 
-            <button class="flex lg:hidden flex-col gap-1.5 p-2">
+            <button id="HamburgerMenu" class="flex lg:hidden flex-col gap-1.5 p-2">
                 <span class="block w-5 h-0.5 bg-gray-600"></span>
                 <span class="block w-5 h-0.5 bg-gray-600"></span>
                 <span class="block w-5 h-0.5 bg-gray-600"></span>
@@ -36,41 +49,121 @@
         </nav>
     </section>
 
-    <section>
-        <div class="mx-4 my-4">
-            <h2>Weight</h2>
-            <div class="border border-2 h-full bg-blue-100">
-                <div>
-                    <label class="block">Check:</label>
-                    <input class="block"/>
-                </div>
-                <div>
-                    <label class="block">Check:</label>
-                    <input class="block"/>
-                </div>
+    <main class="max-w-5xl mx-auto px-4 my-8 space-y-8">
+
+        <section id="section-weight" class="block">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 px-2">Weight Conversion</h2>
+            <div class="flex flex-col md:flex-row gap-6 border-2 border-gray-200 rounded-xl bg-blue-50 p-6 shadow-sm">
+                
+                <form id="form-lbs-to-kg" class="flex-1 bg-white p-5 rounded-lg border border-gray-200 flex flex-col justify-between">
+                    <div class="space-y-3">
+                        <h3 class="font-bold text-gray-700 border-b pb-2">Pounds (lb) to Kilograms (kg)</h3>
+                        <label class="block text-sm font-medium text-gray-600">Enter Value(s):</label>
+                        <input type="text" id="input-lbs" placeholder="e.g., 150 or 10, 20, 30" class="w-full border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 outline-none transition"/>
+                    </div>
+                    <div class="mt-4 space-y-3">
+                        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-4 rounded-lg transition shadow-sm">Convert to Kg</button>
+                        <div class="bg-gray-50 border border-gray-200 p-3 rounded-lg font-mono text-sm min-h-[48px] flex items-center">
+                            <span>Result: <strong id="result-kg" class="text-blue-600 ml-1"></strong></span>
+                        </div>
+                    </div>
+                </form>
+
+                <form id="form-kg-to-lbs" class="flex-1 bg-white p-5 rounded-lg border border-gray-200 flex flex-col justify-between">
+                    <div class="space-y-3">
+                        <h3 class="font-bold text-gray-700 border-b pb-2">Kilograms (kg) to Pounds (lb)</h3>
+                        <label class="block text-sm font-medium text-gray-600">Enter Value(s):</label>
+                        <input type="text" id="input-kg" placeholder="e.g., 70 or 5, 15, 50" class="w-full border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 outline-none transition"/>
+                    </div>
+                    <div class="mt-4 space-y-3">
+                        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-4 rounded-lg transition shadow-sm">Convert to Lbs</button>
+                        <div class="bg-gray-50 border border-gray-200 p-3 rounded-lg font-mono text-sm min-h-[48px] flex items-center">
+                            <span>Result: <strong id="result-lbs" class="text-blue-600 ml-1"></strong></span>
+                        </div>
+                    </div>
+                </form>
+
             </div>
-        </div>
-    </section>
+        </section>
 
-    <script>
-        const BUTTON_TAG = "button-tag";
-        const BUTTON_WEIGHT_ID = "btn-weight";
-        const BUTTON_DISTANCE_ID = "btn-distance";
-        const BUTTON_TEMPERATURE_ID = "btn-temperature";
+        <section id="section-distance" class="hidden">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 px-2">Distance Conversion</h2>
+            <div class="flex flex-col md:flex-row gap-6 border-2 border-gray-200 rounded-xl bg-green-50 p-6 shadow-sm">
+                
+                <form id="form-mi-to-km" class="flex-1 bg-white p-5 rounded-lg border border-gray-200 flex flex-col justify-between">
+                    <div class="space-y-3">
+                        <h3 class="font-bold text-gray-700 border-b pb-2">Miles (mi) to Kilometres (km)</h3>
+                        <label class="block text-sm font-medium text-gray-600">Enter Value(s):</label>
+                        <input type="text" id="input-mi" placeholder="e.g., 60 or 5, 10, 25" class="w-full border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-green-500 outline-none transition"/>
+                    </div>
+                    <div class="mt-4 space-y-3">
+                        <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2.5 px-4 rounded-lg transition shadow-sm">Convert to Km</button>
+                        <div class="bg-gray-50 border border-gray-200 p-3 rounded-lg font-mono text-sm min-h-[48px] flex items-center">
+                            <span>Result: <strong id="result-km" class="text-green-600 ml-1"></strong></span>
+                        </div>
+                    </div>
+                </form>
 
-        document.querySelectorAll(`.${BUTTON_TAG}`).forEach(element => element.addEventListener("click", (event)=>{
-            const id = event.target.id;
+                <form id="form-km-to-mi" class="flex-1 bg-white p-5 rounded-lg border border-gray-200 flex flex-col justify-between">
+                    <div class="space-y-3">
+                        <h3 class="font-bold text-gray-700 border-b pb-2">Kilometres (km) to Miles (mi)</h3>
+                        <label class="block text-sm font-medium text-gray-600">Enter Value(s):</label>
+                        <input type="text" id="input-km-dist" placeholder="e.g., 100 or 12, 50, 80" class="w-full border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-green-500 outline-none transition"/>
+                    </div>
+                    <div class="mt-4 space-y-3">
+                        <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2.5 px-4 rounded-lg transition shadow-sm">Convert to Miles</button>
+                        <div class="bg-gray-50 border border-gray-200 p-3 rounded-lg font-mono text-sm min-h-[48px] flex items-center">
+                            <span>Result: <strong id="result-mi" class="text-green-600 ml-1"></strong></span>
+                        </div>
+                    </div>
+                </form>
 
-            if (id == BUTTON_WEIGHT_ID) {
-                console.log(id);
-            }
-            else if (id == BUTTON_DISTANCE_ID) {
-                console.log(id);
-            }
-            else if (id == BUTTON_TEMPERATURE_ID) {
-                console.log(id);
-            }
-        }));    
-    </script>
+            </div>
+        </section>
+
+        <section id="section-temperature" class="hidden">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 px-2">Temperature Conversion</h2>
+            <div class="flex flex-col md:flex-row gap-6 border-2 border-gray-200 rounded-xl bg-orange-50 p-6 shadow-sm">
+                
+                <form id="form-c-to-f" class="flex-1 bg-white p-5 rounded-lg border border-gray-200 flex flex-col justify-between">
+                    <div class="space-y-3">
+                        <h3 class="font-bold text-gray-700 border-b pb-2">Celsius (°C) to Fahrenheit (°F)</h3>
+                        <label class="block text-sm font-medium text-gray-600">Enter Value(s):</label>
+                        <input type="text" id="input-c" placeholder="e.g., 0 or 21, 37, 100" class="w-full border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-orange-500 outline-none transition"/>
+                    </div>
+                    <div class="mt-4 space-y-3">
+                        <button type="submit" class="w-full bg-orange-600 hover:bg-orange-700 text-white font-semibold py-2.5 px-4 rounded-lg transition shadow-sm">Convert to °F</button>
+                        <div class="bg-gray-50 border border-gray-200 p-3 rounded-lg font-mono text-sm min-h-[48px] flex items-center">
+                            <span>Result: <strong id="result-f" class="text-orange-600 ml-1"></strong></span>
+                        </div>
+                    </div>
+                </form>
+
+                <form id="form-f-to-c" class="flex-1 bg-white p-5 rounded-lg border border-gray-200 flex flex-col justify-between">
+                    <div class="space-y-3">
+                        <h3 class="font-bold text-gray-700 border-b pb-2">Fahrenheit (°F) to Celsius (°C)</h3>
+                        <label class="block text-sm font-medium text-gray-600">Enter Value(s):</label>
+                        <input type="text" id="input-f" placeholder="e.g., 32 or 68, 98.6, 212" class="w-full border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-orange-500 outline-none transition"/>
+                    </div>
+                    <div class="mt-4 space-y-3">
+                        <button type="submit" class="w-full bg-orange-600 hover:bg-orange-700 text-white font-semibold py-2.5 px-4 rounded-lg transition shadow-sm">Convert to °C</button>
+                        <div class="bg-gray-50 border border-gray-200 p-3 rounded-lg font-mono text-sm min-h-[48px] flex items-center">
+                            <span>Result: <strong id="result-c" class="text-orange-600 ml-1"></strong></span>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="absolute bottom-0 w-full bg-gray-100 border-t border-gray-200">
+        <p class="p-4 text-center text-gray-600">
+            Built using Tailwind CSS and JavaScript
+        </p>
+    </footer>
+
+    <script src="script.js"></script>   
 </body>
 </html>
